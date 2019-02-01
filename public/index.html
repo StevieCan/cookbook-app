@@ -1,0 +1,228 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ratatouille</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="index.js" defer></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div id="vue-app">
+
+    <router-view></router-view>
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<template id="home-page">
+  <div class="vue-component">
+
+    <h1>{{ message }}</h1>
+    <a href="/#/sample">Go to sample page</a>
+
+  </div>
+</template>
+
+<template id="sample-page">
+  <div class="vue-component">
+    
+  <div class="container">
+    <h1>{{ message }}</h1>
+    <p>... Very Interesting.</p>
+    <a href="/#/">Go to home page</a>
+  </div>
+
+  </div>
+</template>
+ -->
+
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   <title>Chez Josh</title>
+   <script src="https://unpkg.com/vue/dist/vue.js"></script>
+   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+   <script src="https://unpkg.com/axios/dist/axios.js"></script>
+   <script src="index.js" defer></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <link rel="stylesheet" href="main.css">
+ </head>
+ <body>
+   <div id="vue-app">
+     <a href="/#/">Home</a>
+
+     <a href="/#/signup">Signup</a>
+     <a href="/#/login">Login</a>
+     <a href="/#/logout">Logout</a>
+     <!-- other links -->
+     <a href="/#/recipes/new">New Recipe</a>
+
+     <router-view></router-view>
+
+   </div>
+
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ </body>
+ </html>
+
+ <template id="recipes-index-page">
+   <div class="vue-component">
+
+     <div class="container">
+
+       <div class="row">
+           <div v-for="recipe in recipes" class="col-md-4">
+
+             <div class="card mb-5" style="width: 18rem;">
+               <img class="card-img-top" v-bind:src="recipe['image_url']" alt="">
+               <div class="card-body">
+                 <h5 class="card-title">{{ recipe["title"] }}</h5>
+                 <p class="card-text">Chef: {{ recipe["chef"] }}</p>
+                 <p class="card-text">Prep Time: {{ recipe["formatted"]["prep_time"] }}</p>
+                 <a v-bind:href="'/client/recipes/' + recipe['id']" class="btn btn-primary float-right">More Info</a>
+               </div>
+             </div>
+
+
+           </div>
+       </div>
+
+     </div>
+
+   </div>
+ </template>
+
+ <template id="recipes-show-page">
+   <div class="vue-component">
+
+     <div class="container">
+       <h2>{{ recipe["title"] }}</h2>
+       <h3>Prep Time: {{ recipe.formatted.prep_time }}</h3>
+       <h4>Chef: {{ recipe["chef"] }}</h4>
+
+
+       <h4>Ingredients: </h4>
+       <ul>
+         <li v-for="ingredient in recipe['formatted']['ingredients']">{{ ingredient }}</li>
+       </ul>
+
+       <h4>Directions: </h4>
+       <ol>
+         <li v-for="direction in recipe.formatted.directions">{{ direction }}</li>
+       </ol>
+
+       <img v-bind:src="recipe['image_url']" alt="">
+       <br>
+
+       <h6>created on {{ recipe["formatted"]["created_at"] }}</h6>
+     </div>
+
+   </div>
+ </template>
+
+
+ <template id="recipes-new-page">
+   <div class="vue-component">
+
+     <div class="container">
+       <h1>New Recipe</h1>
+       <ul>
+         <li class="text-danger" v-for="error in errors">{{ error }}</li>
+       </ul>
+       <div class="form-group">
+         <label>Title:</label> 
+         <input type="text" class="form-control" v-model="title">
+       </div>
+       <div class="form-group">
+         <label>Ingredients:</label>
+         <input type="text" class="form-control" v-model="ingredients">
+       </div>
+       <div class="form-group">
+         <label>Directions:</label>
+         <input type="text" class="form-control" v-model="directions">
+       </div>
+       <div class="form-group">
+         <label>Prep Time:</label>
+         <input type="text" class="form-control" v-model="prepTime">
+       </div>
+       <div class="form-group">
+         <label>Image URL:</label>
+         <input type="text" class="form-control" v-model="imageURL">
+       </div>
+       <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+     </div>
+
+   </div>
+ </template>
+
+ <template id="signup-page">
+   <div class="vue-component">
+
+     <div class="container">
+       <h1>Signup</h1>
+       <ul>
+         <li class="text-danger" v-for="error in errors">{{ error }}</li>
+       </ul>
+       <div class="form-group">
+         <label>Name:</label> 
+         <input type="text" class="form-control" v-model="name">
+       </div>
+       <div class="form-group">
+         <label>Email:</label>
+         <input type="email" class="form-control" v-model="email">
+       </div>
+       <div class="form-group">
+         <label>Password:</label>
+         <input type="password" class="form-control" v-model="password">
+       </div>
+       <div class="form-group">
+         <label>Password confirmation:</label>
+         <input type="password" class="form-control" v-model="passwordConfirmation">
+       </div>
+       <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+     </div>
+
+   </div>
+ </template>
+
+ <template id="login-page">
+   <div class="vue-component">
+
+     <div class="container">
+       <h1>Login</h1>
+       <ul>
+         <li class="text-danger" v-for="error in errors">{{ error }}</li>
+       </ul>
+       <div class="form-group">
+         <label>Email:</label>
+         <input type="email" class="form-control" v-model="email">
+       </div>
+       <div class="form-group">
+         <label>Password:</label>
+         <input type="password" class="form-control" v-model="password">
+       </div>
+       <button class="btn btn-primary" v-on:click="submit()">Login</button>
+     </div>
+
+   </div>
+ </template>
+
+
+
+
+
+
